@@ -8,12 +8,11 @@ import os
 en_ru = {}
 ru_en = {}
 
-with open('en_ru.txt', encoding='utf-8') as inp:
+with open('en_ru.txt', encoding='UTF-8') as inp:
 	for i in inp.readlines():
 		key,val = i.strip().split(':')
 		en_ru[key] = val
-		print("end")
-with open('ru_en.txt', encoding='utf-8') as inp:
+with open('ru_en.txt', encoding='UTF-8') as inp:
 	for i in inp.readlines():
 		key,val = i.strip().split(':')
 		ru_en[key] = val
@@ -22,35 +21,51 @@ with open('ru_en.txt', encoding='utf-8') as inp:
 
 
 def start():
+	go = False
 	while True:
-		quest = get_quest()
-		#print(quest)
-		if (pyautogui.pixelMatchesColor(165, 955, (184, 242, 139), tolerance=2)):
-			pyautogui.click(1358, 967)
-		elif pyautogui.pixelMatchesColor(890, 360, (28, 176, 246), tolerance=2):
-			skip_audio()
-		elif pyautogui.pixelMatchesColor(934, 433, (28, 176, 246), tolerance=2):	
-			skip_audio2()
-		elif pyautogui.pixelMatchesColor(1471, 160, (120, 200, 0), tolerance=20):	
-			print("FInish")
-			break
-		elif(quest == 'Повторите это предложение вслух'):
-			pyautogui.click(665, 972)
-		elif(quest =='Отметьте правильное значение'):
-			choose2()
-		elif(quest =='Заполните пропуск'):
-			fill()	
-		elif (quest == 'Введите перевод на английский'):
-			translate_to_en()
-		elif (quest == 'Введите перевод на русский'):
-			translate_to_ru()	
-		elif re.search(r'\bНапишите\b', quest):
-			write_smth(quest)
-		elif re.search(r'Отметьте \b', quest):	
-			choose(quest)
-
+		print("as")
+		if (pyautogui.pixelMatchesColor(813, 395, (88, 204, 2), tolerance=10)):
+			print("start")
+			go = True
+			pyautogui.click(1255, 969)
 		else:
-			break	
+			go = False	
+		while go == True:
+			quest = get_quest()
+			#print(quest)
+			if (pyautogui.pixelMatchesColor(165, 955, (184, 242, 139), tolerance=2)):
+				pyautogui.click(1358, 967)
+			elif pyautogui.pixelMatchesColor(1471, 160, (120, 200, 0), tolerance=20):	
+				go = False
+			elif (pyautogui.pixelMatchesColor(1018, 335, (120, 200, 0), tolerance=10)): #end of a lesson
+				print("Finish")
+				go = False	
+			elif pyautogui.pixelMatchesColor(890, 360, (28, 176, 246), tolerance=2):
+				skip_audio()
+			elif pyautogui.pixelMatchesColor(934, 433, (28, 176, 246), tolerance=2):	
+				skip_audio2()
+			
+			elif(quest == 'Повторите это предложение вслух'):
+				pyautogui.click(665, 972)
+			elif(quest =='Отметьте правильное значение'):
+				choose2()
+			elif(quest =='Заполните пропуск'):
+				fill()	
+			elif (quest == 'Введите перевод на английский'):
+				translate_to_en()
+			elif (quest == 'Введите перевод на русский'):
+				translate_to_ru()	
+			elif re.search(r'\bНапишите\b', quest):
+				write_smth(quest)
+			elif re.search(r'Отметьте \b', quest):	
+				choose(quest)
+			else:
+				break	
+
+
+def choose_theme():
+	print()
+
 
 def skip_audio():
 	pyautogui.click(499, 936)
@@ -191,8 +206,9 @@ def translate_to_en():
 		pyautogui.hotkey('ctrl', 'c')
 		time.sleep(0.2)
 		ru_en[text] = (str)(pyperclip.paste())
-		for key,val in ru_en.items():
-			out.write('{}:{}\n'.format(key,val))
+		with open('ru_en.txt','w', encoding='UTF-8') as out:
+			for key,val in ru_en.items():
+				out.write('{}:{}\n'.format(key,val))
 
 	
 	check()
@@ -222,8 +238,9 @@ def translate_to_ru():
 		pyautogui.hotkey('ctrl', 'c')
 		time.sleep(0.2)
 		en_ru[text] = (str)(pyperclip.paste())
-		for key,val in en_ru.items():
-			out.write('{}:{}\n'.format(key,val))
+		with open('en_ru.txt','w', encoding='UTF-8') as out:
+			for key,val in en_ru.items():
+				out.write('{}:{}\n'.format(key,val))
 	
 	check()
 
