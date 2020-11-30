@@ -1,0 +1,24 @@
+Rezultat_ = [1,0,0,0,1,0,1,1,0,0,1,0,1,1,0,1,0,0,1]
+Pattern_ = [0,1]
+rezult_33 = []
+patt_41 = 101
+count = 0
+j = 0
+a = 0
+l = len(Pattern_)
+for i in range(len(Rezultat_)):
+    rezult_33.append(Rezultat_[i])
+print(rezult_33)
+for j in range(a, len(rezult_33)):
+    if rezult_33[j] == Pattern_[0]:
+        count += 1
+        for g in range(1, len(Pattern_)):
+            if Pattern_[g] == rezult_33[j + g]:
+                count += 1
+            if Pattern_[g] != rezult_33[j + g]:
+                count = 0
+                break
+            if count == l:
+                rezult_33.insert(j + l, patt_41)
+                a = j + l
+                break

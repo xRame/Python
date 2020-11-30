@@ -1,14 +1,5 @@
-import json
-import requests
-import urllib.request
-import codecs
+import pyautogui
 
-
-
-with urllib.request.urlopen('http://rzhunemogu.ru/RandJSON.aspx?CType=11') as response:
-    source = response.read()
-    print(source.decode().strip())
-
-data = (json.loads(source))
-for value in data["results"].values():
-    print(value)
+print(pyautogui.pixelMatchesColor(1782, 971, (255, 193, 193), tolerance=2))
+pyautogui.moveTo(608, 874)
+pyautogui.dragTo(1074, 878, duration=0.5)  # drag mouse to XY

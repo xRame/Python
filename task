@@ -1,0 +1,66 @@
+BAZA = [1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0]
+ 
+Shag = 3  # int(input()) шаг
+REZULT_01 = []
+ 
+def SHAG():
+    
+    BAZA = open('БАЗА.txt', 'r')
+    zero = BAZA.readline().replace('\n', '')
+    lst_zero = list(zero)
+    for i in range(len(lst_zero)):
+        lst_zero[i] = int(lst_zero[i])
+    BAZA.close()
+    
+    print(len(lst_zero), lst_zero)
+    return lst_zero
+ 
+SHAG()
+ 
+for i in range(0, len(BAZA), Shag):
+    REZULT_01.append(BAZA[i])
+print(REZULT_01)
+ 
+F_P_R = open('ФАЙЛ_Промежуточных_Результатов', 'w')
+for i in REZULT_01:  
+    F_P_R.write(str(i))
+F_P_R.close()
+ 
+######################################################
+def SHAG():
+ 
+    F_P_R = open('БАЗА.txt', 'r')
+    zero = F_P_R.readline().replace('\n', '')
+    lst_zero = list(zero)
+    for i in range(len(lst_zero)):
+        lst_zero[i] = int(lst_zero[i])
+    F_P_R.close()
+ 
+    print(len(lst_zero), lst_zero)
+    return lst_zero
+ 
+Shag_10 = []
+Summ_shag = 5  # ввод количества шагов int(input())
+Summa_shag = 0
+REZULT_01 = []
+for i in range(0, Summ_shag):
+    Shag_10.append(int(input('введите дистанцию шага № ' + str(i + 1) + ': ')))  # для
+    Summa_shag += i # сумирование значений шагов
+print(Shag_10)
+def SHAS_SL():  # шаг сложный
+    e = 0
+    while e < len(BAZA) - Summa_shag:
+        e += 1
+        for i in range(0, len(Shag_10)):
+            for j in range(e, e + i + 1, i + 1):
+                REZULT_01.append(BAZA[j])
+ 
+    print(REZULT_01)
+    return REZULT_01
+ 
+SHAS_SL()
+ 
+F_P_R = open('ФАЙЛ_Промежуточных_Результатов', 'w')
+for i in REZULT_01:
+    F_P_R.write(str(i))
+F_P_R.close()
